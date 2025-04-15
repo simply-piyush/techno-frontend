@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./NoticesBoard.css";
+import "./App.css";
 
 export default function NoticesBoard() {
   const [notices, setNotices] = useState([]);
