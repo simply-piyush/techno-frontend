@@ -1,73 +1,55 @@
-/* App.css */
+/* src/App.css */
 
 body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f2f5;
-  }
-  
-  .App {
-    display: flex;
-    height: 100vh;
-  }
-  
-  .sidebar {
-    width: 220px;
-    background-color: #2f3542;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-  }
-  
-  .sidebar h3 {
-    margin: 0 0 20px;
-    font-size: 20px;
-  }
-  
-  .sidebar button {
-    background: none;
-    color: white;
-    border: none;
-    margin-bottom: 10px;
-    padding: 10px;
-    text-align: left;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  .sidebar button:hover {
-    background-color: #57606f;
-  }
-  
-  .main {
-    flex: 1;
-    padding: 20px;
-    background-color: white;
-    overflow: auto;
-  }
-  
-  .toolbar {
-    display: flex;
-    justify-content: flex-start;
-    margin-bottom: 15px;
-    gap: 10px;
-  }
-  
-  .toolbar button {
-    padding: 8px 16px;
-    background-color: #1e90ff;
-    border: none;
-    color: white;
-    font-weight: 600;
-    font-size: 14px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  
-  .toolbar button:hover {
-    background-color: #0066cc;
-  }
-  
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f6f8;
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  background-color: #2b2f36;
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 12px 0;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.sidebar li:hover,
+.sidebar li.active {
+  background-color: #4f5b66;
+}
+
+.main-content {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+.main-content h1 {
+  margin-top: 0;
+  font-size: 24px;
+}
