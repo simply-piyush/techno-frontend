@@ -38,15 +38,15 @@ function App() {
           <h2>📚 Techno Admin</h2>
           <nav>
             <ul>
-              <li>
-                <Link to="/">📊 Student Sheet</Link>
-              </li>
+              <Link to="/" className="nav-link">
+                <li>📊 Student Sheet</li>
+              </Link>
               <li>
                 <span>📝 Classwork (coming soon)</span>
               </li>
-              <li>
-                <Link to="/notices">📢 Notices</Link>
-              </li>
+              <Link to="/notices" className="nav-link">
+                <li>📢 Notices</li>
+              </Link>
             </ul>
           </nav>
         </aside>
