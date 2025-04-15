@@ -109,3 +109,18 @@ body {
   text-decoration: underline;
 }
 
+.nav-link {
+  text-decoration: none;
+  display: block;
+}
+
+.nav-link li {
+  margin: 12px 0;
+  padding: 10px 15px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.nav-link li:hover {
+  background-color: #4f5b66;
+}
