@@ -100,4 +100,12 @@ body {
   font-size: 0.85rem;
   color: #666;
 }
+.sidebar a {
+  color: white;
+  text-decoration: none;
+}
+
+.sidebar a:hover {
+  text-decoration: underline;
+}
 
