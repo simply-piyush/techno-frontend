@@ -4,14 +4,15 @@
   "private": true,
   "proxy": "https://techno-backend-76p3.onrender.com",
   "dependencies": {
+    "@handsontable/react": "^12.1.0",
     "handsontable": "^12.1.0",
-  "@handsontable/react": "^12.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1"
+    "react-scripts": "5.0.1",
+    "xlsx": "^0.18.5"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "npm install && react-scripts build"
   }
 }
