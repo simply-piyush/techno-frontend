@@ -4,6 +4,8 @@
   "private": true,
   "proxy": "https://techno-backend-76p3.onrender.com",
   "dependencies": {
+    "handsontable": "^12.1.0",
+  "@handsontable/react": "^12.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1"
