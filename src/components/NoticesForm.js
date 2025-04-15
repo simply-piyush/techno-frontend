@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./NoticesForm.css";
+import "./App.css";
 
 export default function NoticesForm() {
   const [form, setForm] = useState({ title: "", description: "" });
