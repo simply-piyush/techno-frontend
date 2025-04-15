@@ -3,6 +3,16 @@ import React from "react";
 import "./App.css";
 
 function App() {
+  const handleSync = async () => {
+    try {
+      const res = await fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec");
+      const text = await res.text();
+      alert("✅ Sync triggered!\n" + text);
+    } catch (err) {
+      alert("❌ Sync failed: " + err.message);
+    }
+  };
+
   return (
     <div className="app-container">
       <aside className="sidebar">
@@ -18,6 +28,11 @@ function App() {
 
       <main className="main-content">
         <h1>📄 Embedded Student Database Sheet</h1>
+
+        <button className="sync-button" onClick={handleSync}>
+          🔄 Sync to MongoDB
+        </button>
+
         <iframe
           src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTMfXpZoVB_QUvmWJZjRhuElrcy5zpfjhR-Ij_Sq58JsitVK0MhXsXid9L-Nxc4nRZalKLZMN2lanIP/pubhtml?widget=true&amp;headers=false"
           width="100%"
