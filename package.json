@@ -13,6 +13,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "npm install && react-scripts build"
+    "build": "npm install && react-scripts build",
+    "handshake": "npm install && npm run build"
   }
 }
