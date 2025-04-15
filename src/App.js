@@ -27,13 +27,8 @@ function App() {
       </aside>
 
       <main className="main-content">
-        <h1>📄 Embedded Student Database Sheet</h1>
-
-        <button className="sync-button" onClick={handleSync}>
-          🔄 Sync to MongoDB
-        </button>
-
-        <iframe
+      <h1> Student Database Sheet </h1>
+       <iframe
           src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTMfXpZoVB_QUvmWJZjRhuElrcy5zpfjhR-Ij_Sq58JsitVK0MhXsXid9L-Nxc4nRZalKLZMN2lanIP/pubhtml?widget=true&amp;headers=false"
           width="100%"
           height="600"
