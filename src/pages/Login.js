@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const BACKEND_URL = 'https://techno-backend.onrender.com'; // replace with your backend URL if different
+const BACKEND_URL = 'https://techno-backend-76p3.onrender.com'; // replace with your backend URL if different
 
 const Login = () => {
   const [roll, setRoll] = useState('');
