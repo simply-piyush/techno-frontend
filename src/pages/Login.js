@@ -13,7 +13,7 @@ function Login() {
 
     // Admin shortcut check
     if (roll === "admin1" && dob === "admin1") {
-      navigate("/AdminDashboard");
+      navigate("/admin-dashboard");
       return;
     }
 
@@ -27,7 +27,7 @@ function Login() {
       const data = await res.json();
 
       if (res.ok && data.success) {
-        navigate("/StudentDashboard");
+        navigate("/dashboard");
       } else {
         setError("Invalid Student ID or DOB.");
       }
