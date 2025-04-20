@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import StudentTable from "../components/StudentTable";
-import CreateNotice from "../components/CreateNotice";
-import AdminNoticeBoard from "../components/AdminNoticeBoard";
+import StudentTable from "../components/StudentsTable";
+import CreateNotice from "../components/NoticesForm";
+import AdminNoticeBoard from "../components/NoticeBoard";
 
 const AdminDashboard = () => {
   const [activePage, setActivePage] = useState("students");
