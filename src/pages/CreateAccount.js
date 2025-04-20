@@ -1,171 +1,171 @@
 import React, { useState } from "react";
+import "./createAccount.css";
 
-function CreateAccount({ goBack }) {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    roll: "",
-    dob: "",
-    password: "",
+function CreateAccount() {
+  const [form, setForm] = useState({
+    name: "", email: "", phone: "", roll: "", dob: "",
+    bloodGroup: "", nationality: "",
+    gender: "", caste: "", stream: "", year: "2024",
+    enrollmentNo: "", examName: "", examRank: "",
+    studentPan: "", studentPassport: "",
+    address: "", district: "", state: "", pin: "",
+    guardianName: "",
+
+    fatherName: "", fatherMobile: "", fatherOccupation: "", fatherDesignation: "", fatherAge: "",
+    fatherPan: "", fatherPassport: "", fatherAddress: "", fatherPin: "", fatherDistrict: "",
+
+    motherName: "", motherMobile: "", motherOccupation: "", motherDesignation: "", motherAge: "",
+    motherPan: "", motherPassport: "", motherAddress: "", motherPin: "", motherDistrict: "",
+
+    password: ""
   });
 
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState(false);
+  const [success, setSuccess] = useState("");
 
-  const handleChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const states = ["Select State", "West Bengal", "Bihar", "Odisha", "Assam", "Jharkhand", "Uttar Pradesh"];
+  const genders = ["Select Gender", "Male", "Female", "Other"];
+  const castes = ["Select Caste", "General", "SC", "ST", "OBC"];
+  const streams = ["Select Stream", "CSE", "ECE", "ME", "CE"];
+
+  const requiredFields = Object.keys(form).filter(key => !key.toLowerCase().includes("passport"));
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+
+    if (name === "dob") setForm({ ...form, dob: value, password: value });
+  };
+
+  const isValidPhone = (phone) => /^[6-9]\d{9}$/.test(phone);
+  const isValidEmail = (email) => /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(email);
 
   const handleSubmit = async () => {
-    const { name, email, phone, roll, dob } = formData;
-    if (!name || !email || !phone || !roll || !dob) {
-      setError("Please fill all fields");
+    // Check all required fields
+    for (let key of requiredFields) {
+      if (!form[key] || form[key].trim() === "") {
+        setError(`Please fill the field: ${key}`);
+        return;
+      }
+    }
+
+    // Validate phone and email
+    if (!isValidPhone(form.phone) || !isValidPhone(form.fatherMobile) || !isValidPhone(form.motherMobile)) {
+      setError("All phone numbers must be valid 10-digit numbers starting with 6-9.");
       return;
     }
 
-    formData.password = dob;
+    if (!isValidEmail(form.email)) {
+      setError("Invalid email format.");
+      return;
+    }
+
+    if (new Set([form.phone, form.fatherMobile, form.motherMobile]).size !== 3) {
+      setError("Student, father, and mother phone numbers must be different.");
+      return;
+    }
 
     try {
-      const res = await fetch(
-        "https://techno-backend-76p3.onrender.com/api/students/create",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        }
-      );
+      const res = await fetch("https://techno-backend-76p3.onrender.com/api/students/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form)
+      });
 
       if (!res.ok) {
-        setError("Failed to create account");
+        setError("Failed to create student. Server error.");
         return;
       }
 
-      setSuccess(true);
       setError("");
+      setSuccess("Account created successfully!");
     } catch (err) {
-      setError("Network error");
+      console.error(err);
+      setError("Network error. Please try again.");
     }
   };
 
+  const renderInput = (label, name, type = "text") => (
+    <div className="input-group">
+      <label>{label}</label>
+      <input type={type} name={name} value={form[name]} onChange={handleChange} />
+    </div>
+  );
+
+  const renderSelect = (label, name, options) => (
+    <div className="input-group">
+      <label>{label}</label>
+      <select name={name} value={form[name]} onChange={handleChange}>
+        {options.map(opt => (
+          <option key={opt} value={opt}>{opt}</option>
+        ))}
+      </select>
+    </div>
+  );
+
   return (
-    <div style={styles.container}>
-      <div style={styles.card}>
-        <h2 style={styles.title}>Create Account</h2>
+    <div className="create-account-container">
+      <h2>Create Student Account</h2>
 
-        <input
-          type="text"
-          placeholder="Full Name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          style={styles.input}
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          style={styles.input}
-        />
-        <input
-          type="text"
-          placeholder="Phone"
-          name="phone"
-          value={formData.phone}
-          onChange={handleChange}
-          style={styles.input}
-        />
-        <input
-          type="text"
-          placeholder="Roll Number"
-          name="roll"
-          value={formData.roll}
-          onChange={handleChange}
-          style={styles.input}
-        />
-        <input
-          type="text"
-          placeholder="Date of Birth (DD-MM-YYYY)"
-          name="dob"
-          value={formData.dob}
-          onChange={handleChange}
-          style={styles.input}
-        />
+      {error && <p className="error">{error}</p>}
+      {success && <p className="success">{success}</p>}
 
-        {error && <div style={styles.error}>{error}</div>}
-        {success && (
-          <div style={styles.success}>Account created successfully!</div>
-        )}
+      <section>
+        <h3>Personal Info</h3>
+        {renderInput("Full Name", "name")}
+        {renderInput("Email", "email")}
+        {renderInput("Phone", "phone")}
+        {renderInput("Roll Number", "roll")}
+        {renderInput("Date of Birth (DD-MM-YYYY)", "dob")}
+        {renderInput("Blood Group", "bloodGroup")}
+        {renderInput("Nationality", "nationality")}
+        {renderInput("Address", "address")}
+        {renderInput("District", "district")}
+        {renderSelect("State", "state", states)}
+        {renderInput("PIN Code", "pin")}
+        {renderSelect("Gender", "gender", genders)}
+        {renderSelect("Caste", "caste", castes)}
+        {renderSelect("Stream", "stream", streams)}
+        {renderInput("Joining Year", "year")}
+        {renderInput("Enrollment No", "enrollmentNo")}
+        {renderInput("Exam Name", "examName")}
+        {renderInput("Exam Rank", "examRank")}
+        {renderInput("PAN Number", "studentPan")}
+        {renderInput("Passport (optional)", "studentPassport")}
+        {renderInput("Guardian Name", "guardianName")}
+      </section>
 
-        <button onClick={handleSubmit} style={styles.button}>
-          Submit
-        </button>
-        <p onClick={goBack} style={styles.link}>
-          Back to Login
-        </p>
-      </div>
+      <section>
+        <h3>Father's Info</h3>
+        {renderInput("Father's Name", "fatherName")}
+        {renderInput("Mobile", "fatherMobile")}
+        {renderInput("Occupation", "fatherOccupation")}
+        {renderInput("Designation", "fatherDesignation")}
+        {renderInput("Age", "fatherAge")}
+        {renderInput("PAN", "fatherPan")}
+        {renderInput("Passport (optional)", "fatherPassport")}
+        {renderInput("Address", "fatherAddress")}
+        {renderInput("District", "fatherDistrict")}
+        {renderInput("PIN Code", "fatherPin")}
+      </section>
+
+      <section>
+        <h3>Mother's Info</h3>
+        {renderInput("Mother's Name", "motherName")}
+        {renderInput("Mobile", "motherMobile")}
+        {renderInput("Occupation", "motherOccupation")}
+        {renderInput("Designation", "motherDesignation")}
+        {renderInput("Age", "motherAge")}
+        {renderInput("PAN", "motherPan")}
+        {renderInput("Passport (optional)", "motherPassport")}
+        {renderInput("Address", "motherAddress")}
+        {renderInput("District", "motherDistrict")}
+        {renderInput("PIN Code", "motherPin")}
+      </section>
+
+      <button className="submit-btn" onClick={handleSubmit}>Submit</button>
     </div>
   );
 }
-
-const styles = {
-  container: {
-    minHeight: "100vh",
-    background: "linear-gradient(to bottom, #cc0000, #b30000)",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  card: {
-    background: "white",
-    padding: "40px",
-    borderRadius: "12px",
-    boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-    textAlign: "center",
-    width: "90%",
-    maxWidth: "400px",
-  },
-  title: {
-    color: "#b30000",
-    fontWeight: "bold",
-    fontSize: "24px",
-    marginBottom: "20px",
-  },
-  input: {
-    width: "100%",
-    padding: "12px",
-    marginBottom: "12px",
-    borderRadius: "8px",
-    border: "1px solid #ccc",
-  },
-  button: {
-    width: "100%",
-    padding: "12px",
-    backgroundColor: "#b30000",
-    color: "white",
-    border: "none",
-    borderRadius: "8px",
-    fontWeight: "bold",
-    cursor: "pointer",
-    marginBottom: "12px",
-  },
-  link: {
-    color: "#b30000",
-    cursor: "pointer",
-    textDecoration: "underline",
-    fontSize: "14px",
-  },
-  error: {
-    color: "red",
-    marginBottom: "10px",
-    fontSize: "14px",
-  },
-  success: {
-    color: "green",
-    marginBottom: "10px",
-    fontSize: "14px",
-  },
-};
 
 export default CreateAccount;
