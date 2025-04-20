@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/DashboardLayout.css';
+import '../styles/Dashboard.css';
 
 const DashboardLayout = ({ children }) => {
   const [sidebarVisible, setSidebarVisible] = useState(false);
