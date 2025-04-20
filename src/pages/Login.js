@@ -11,26 +11,29 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Admin shortcut check
+    if (roll === "admin1" && dob === "admin1") {
+      navigate("/AdminDashboard");
+      return;
+    }
+
     try {
       const res = await fetch("https://techno-backend-76p3.onrender.com/api/students/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ roll, password: dob })
       });
 
-      if (!res.ok) throw new Error("Login failed");
-
       const data = await res.json();
 
-      if (data.role === "admin") {
-        navigate("/admin-dashboard", { state: { user: data } });
+      if (res.ok && data.success) {
+        navigate("/StudentDashboard");
       } else {
-        navigate("/dashboard", { state: { student: data } });
+        setError("Invalid Student ID or DOB.");
       }
     } catch (err) {
-      setError("Login failed. Please check your Student ID and DOB.");
+      console.error(err);
+      setError("Server error. Please try again later.");
     }
   };
 
