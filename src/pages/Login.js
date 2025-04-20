@@ -12,7 +12,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const data = await loginStudent({ studentId, dob });
+      const data = await loginStudent({ roll, password });
       alert("Login successful!");
       navigate("/dashboard");
     } catch (error) {
@@ -32,7 +32,7 @@ const Login = () => {
       <form onSubmit={handleLogin}>
         <input
           type="text"
-          placeholder="Student ID"
+          placeholder="University Roll No."
           value={studentId}
           onChange={(e) => setStudentId(e.target.value)}
           required
