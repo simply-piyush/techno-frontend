@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import "./Dashboard.css";
+import React, { useState } from 'react';
+import '../styles/DashboardLayout.css';
 
-const Dashboard = () => {
+const DashboardLayout = ({ children }) => {
   const [sidebarVisible, setSidebarVisible] = useState(false);
 
   const toggleSidebar = () => {
@@ -15,7 +15,7 @@ const Dashboard = () => {
         <h2>My College</h2>
       </div>
 
-      <div id="sidebar" className={`sidebar ${sidebarVisible ? "show" : ""}`}>
+      <div className={`sidebar ${sidebarVisible ? 'show' : ''}`}>
         <div>🏠 Home</div>
         <div>📝 Full Details</div>
         <div>📊 Marks</div>
@@ -27,12 +27,11 @@ const Dashboard = () => {
         <div>🖼️ Gallery</div>
       </div>
 
-      <div className={`content ${sidebarVisible ? "with-sidebar" : ""}`}>
-        <h3>Dashboard</h3>
-        <p>This is the first content section.</p>
+      <div className={`content ${sidebarVisible ? 'with-sidebar' : ''}`}>
+        {children}
       </div>
     </div>
   );
 };
 
-export default Dashboard;
+export default DashboardLayout;
