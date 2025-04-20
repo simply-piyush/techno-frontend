@@ -4,15 +4,14 @@ import "./login.css";
 
 function Login() {
   const [roll, setRoll] = useState("");
-  const [dob, setDob] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Admin shortcut check
-    if (roll === "admin1" && dob === "admin1") {
+    if (roll === "admin1" && password === "admin1") {
       navigate("/admin-dashboard");
       return;
     }
@@ -21,7 +20,7 @@ function Login() {
       const res = await fetch("https://techno-backend-76p3.onrender.com/api/students/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ roll, password: dob })
+        body: JSON.stringify({ roll, password })
       });
 
       const data = await res.json();
@@ -29,7 +28,7 @@ function Login() {
       if (res.ok && data.success) {
         navigate("/dashboard");
       } else {
-        setError("Invalid Student ID or DOB.");
+        setError("Invalid Student ID or Password.");
       }
     } catch (err) {
       console.error(err);
@@ -55,9 +54,10 @@ function Login() {
             required
           />
           <input
-            type="date"
-            value={dob}
-            onChange={(e) => setDob(e.target.value)}
+            type="text"
+            placeholder="Password (DOB - DD-MM-YYYY)"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
           <button type="submit">LOGIN</button>
