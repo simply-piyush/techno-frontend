@@ -1,37 +1,12 @@
-import React, { useState } from 'react';
-import './Dashboard.css';
+import DashboardLayout from "../components/DashboardLayout";
 
-const DashboardLayout = ({ children }) => {
-  const [sidebarVisible, setSidebarVisible] = useState(false);
-
-  const toggleSidebar = () => {
-    setSidebarVisible(!sidebarVisible);
-  };
-
+const Dashboard = () => {
   return (
-    <div>
-      <div className="navbar">
-        <button className="dropdown-btn" onClick={toggleSidebar}>☰</button>
-        <h2>My College</h2>
-      </div>
-
-      <div className={`sidebar ${sidebarVisible ? 'show' : ''}`}>
-        <div>🏠 Home</div>
-        <div>📝 Full Details</div>
-        <div>📊 Marks</div>
-        <div>💰 Fees</div>
-        <div>📆 Attendance</div>
-        <div>📖 Syllabus</div>
-        <div>🏛️ Library</div>
-        <div>🌐 MAKAUT Website</div>
-        <div>🖼️ Gallery</div>
-      </div>
-
-      <div className={`content ${sidebarVisible ? 'with-sidebar' : ''}`}>
-        {children}
-      </div>
-    </div>
+    <DashboardLayout>
+      <h2 className="text-3xl font-semibold mb-4">Dashboard</h2>
+      <p className="text-gray-700">This is your main dashboard content.</p>
+    </DashboardLayout>
   );
 };
 
-export default DashboardLayout;
+export default Dashboard;
