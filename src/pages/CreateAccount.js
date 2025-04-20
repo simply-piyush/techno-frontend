@@ -2,7 +2,12 @@ import React, { useState } from "react";
 
 function CreateAccount({ goBack }) {
   const [formData, setFormData] = useState({
-    name: "", email: "", phone: "", roll: "", dob: "", password: ""
+    name: "",
+    email: "",
+    phone: "",
+    roll: "",
+    dob: "",
+    password: "",
   });
 
   const [error, setError] = useState("");
@@ -21,11 +26,14 @@ function CreateAccount({ goBack }) {
     formData.password = dob;
 
     try {
-      const res = await fetch("https://techno-backend.onrender.com/api/students/create", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        "https://techno-backend-76p3.onrender.com/api/students/create",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (!res.ok) {
         setError("Failed to create account");
@@ -86,17 +94,78 @@ function CreateAccount({ goBack }) {
         />
 
         {error && <div style={styles.error}>{error}</div>}
-        {success && <div style={styles.success}>Account created successfully!</div>}
+        {success && (
+          <div style={styles.success}>Account created successfully!</div>
+        )}
 
-        <button onClick={handleSubmit} style={styles.button}>Submit</button>
-        <p onClick={goBack} style={styles.link}>Back to Login</p>
+        <button onClick={handleSubmit} style={styles.button}>
+          Submit
+        </button>
+        <p onClick={goBack} style={styles.link}>
+          Back to Login
+        </p>
       </div>
     </div>
   );
 }
 
 const styles = {
-  ... // reuse styles from Login.js
+  container: {
+    minHeight: "100vh",
+    background: "linear-gradient(to bottom, #cc0000, #b30000)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  card: {
+    background: "white",
+    padding: "40px",
+    borderRadius: "12px",
+    boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+    textAlign: "center",
+    width: "90%",
+    maxWidth: "400px",
+  },
+  title: {
+    color: "#b30000",
+    fontWeight: "bold",
+    fontSize: "24px",
+    marginBottom: "20px",
+  },
+  input: {
+    width: "100%",
+    padding: "12px",
+    marginBottom: "12px",
+    borderRadius: "8px",
+    border: "1px solid #ccc",
+  },
+  button: {
+    width: "100%",
+    padding: "12px",
+    backgroundColor: "#b30000",
+    color: "white",
+    border: "none",
+    borderRadius: "8px",
+    fontWeight: "bold",
+    cursor: "pointer",
+    marginBottom: "12px",
+  },
+  link: {
+    color: "#b30000",
+    cursor: "pointer",
+    textDecoration: "underline",
+    fontSize: "14px",
+  },
+  error: {
+    color: "red",
+    marginBottom: "10px",
+    fontSize: "14px",
+  },
+  success: {
+    color: "green",
+    marginBottom: "10px",
+    fontSize: "14px",
+  },
 };
 
 export default CreateAccount;
