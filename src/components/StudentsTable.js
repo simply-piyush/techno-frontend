@@ -4,15 +4,14 @@ import 'handsontable/dist/handsontable.full.min.css';
 
 const StudentsTable = () => {
   const [data, setData] = useState([]);
+  const [filteredYear, setFilteredYear] = useState("All");
   const hotTableComponent = useRef(null);
 
-  // Fetch data from the backend API
   const fetchData = async () => {
     try {
-const response = await fetch("https://techno-backend-76p3.onrender.com/api/students");
+      const response = await fetch("https://techno-backend-76p3.onrender.com/api/students");
       const json = await response.json();
       if (json.success) {
-        // Filter only required fields
         const filtered = json.data.map((student) => ({
           name: student.name,
           gender: student.gender,
@@ -43,13 +42,12 @@ const response = await fetch("https://techno-backend-76p3.onrender.com/api/stude
           motherDistrict: student.motherDistrict,
           motherPin: student.motherPin,
         }));
-
         setData(filtered);
       } else {
-        alert('Failed to fetch data.');
+        alert("Failed to fetch data.");
       }
     } catch (error) {
-      alert('Error connecting to the server.');
+      alert("Error connecting to the server.");
     }
   };
 
@@ -57,102 +55,80 @@ const response = await fetch("https://techno-backend-76p3.onrender.com/api/stude
     fetchData();
   }, []);
 
-  // Save changes back to the backend
   const saveChanges = async () => {
     const updatedData = hotTableComponent.current.hotInstance.getSourceData();
     try {
-await fetch("https://techno-backend-76p3.onrender.com/api/students", {
+      const response = await fetch("https://techno-backend-76p3.onrender.com/api/students", {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedData)
       });
       const json = await response.json();
       if (json.success) {
         alert('Data saved successfully.');
-        fetchData(); // Refresh data
+        fetchData();
       } else {
         alert('Error saving data.');
       }
     } catch (error) {
-      alert('Error connecting to the server.');
+      alert("Error connecting to the server.");
     }
   };
 
+  const handleYearFilter = (year) => {
+    setFilteredYear(year);
+  };
+
+  const filteredData =
+    filteredYear === "All" ? data : data.filter((item) => item.year === filteredYear);
+
+  const uniqueYears = [...new Set(data.map((s) => s.year))];
+
   return (
-    <div>
-      <h1>Student Information</h1>
-      <HotTable
-        ref={hotTableComponent}
-        data={data}
-        colHeaders={[
-          'Name',
-          'Gender',
-          'Phone',
-          'Email',
-          'Roll',
-          'Stream',
-          'Joining Year',
-          'Blood Group',
-          'Address',
-          'State',
-          'District',
-          'PIN',
-          "Father's Name",
-          "Father's Mobile",
-          "Father's Occupation",
-          "Father's Designation",
-          "Father's PAN",
-          "Father's Address",
-          "Father's District",
-          "Father's PIN",
-          "Mother's Name",
-          "Mother's Mobile",
-          "Mother's Occupation",
-          "Mother's Designation",
-          "Mother's PAN",
-          "Mother's Address",
-          "Mother's District",
-          "Mother's PIN"
-        ]}
-        columns={[
-          { data: 'name' },
-          { data: 'gender' },
-          { data: 'phone' },
-          { data: 'email' },
-          { data: 'roll' },
-          { data: 'stream' },
-          { data: 'year' },
-          { data: 'bloodGroup' },
-          { data: 'address' },
-          { data: 'state' },
-          { data: 'district' },
-          { data: 'pin' },
-          { data: 'fatherName' },
-          { data: 'fatherMobile' },
-          { data: 'fatherOccupation' },
-          { data: 'fatherDesignation' },
-          { data: 'fatherPan' },
-          { data: 'fatherAddress' },
-          { data: 'fatherDistrict' },
-          { data: 'fatherPin' },
-          { data: 'motherName' },
-          { data: 'motherMobile' },
-          { data: 'motherOccupation' },
-          { data: 'motherDesignation' },
-          { data: 'motherPan' },
-          { data: 'motherAddress' },
-          { data: 'motherDistrict' },
-          { data: 'motherPin' }
-        ]}
-        width="100%"
-        height="auto"
-        stretchH="all"
-        licenseKey="non-commercial-and-evaluation"
-      />
+    <div className="notice-board-container">
+      <h1>Student Records</h1>
+
+      <div style={{ marginBottom: "10px" }}>
+        <label>Filter by Year: </label>
+        <select value={filteredYear} onChange={(e) => handleYearFilter(e.target.value)}>
+          <option value="All">All</option>
+          {uniqueYears.map((year) => (
+            <option key={year} value={year}>{year}</option>
+          ))}
+        </select>
+      </div>
+
+      <div style={{ overflowX: "auto" }}>
+        <HotTable
+          ref={hotTableComponent}
+          data={filteredData}
+          colHeaders={[
+            'Name', 'Gender', 'Phone', 'Email', 'Roll', 'Stream', 'Joining Year', 'Blood Group',
+            'Address', 'State', 'District', 'PIN',
+            "Father's Name", "Father's Mobile", "Father's Occupation", "Father's Designation",
+            "Father's PAN", "Father's Address", "Father's District", "Father's PIN",
+            "Mother's Name", "Mother's Mobile", "Mother's Occupation", "Mother's Designation",
+            "Mother's PAN", "Mother's Address", "Mother's District", "Mother's PIN"
+          ]}
+          columns={[
+            { data: 'name' }, { data: 'gender' }, { data: 'phone' }, { data: 'email' },
+            { data: 'roll' }, { data: 'stream' }, { data: 'year' }, { data: 'bloodGroup' },
+            { data: 'address' }, { data: 'state' }, { data: 'district' }, { data: 'pin' },
+            { data: 'fatherName' }, { data: 'fatherMobile' }, { data: 'fatherOccupation' },
+            { data: 'fatherDesignation' }, { data: 'fatherPan' }, { data: 'fatherAddress' },
+            { data: 'fatherDistrict' }, { data: 'fatherPin' },
+            { data: 'motherName' }, { data: 'motherMobile' }, { data: 'motherOccupation' },
+            { data: 'motherDesignation' }, { data: 'motherPan' }, { data: 'motherAddress' },
+            { data: 'motherDistrict' }, { data: 'motherPin' }
+          ]}
+          height="500px"
+          stretchH="all"
+          licenseKey="non-commercial-and-evaluation"
+        />
+      </div>
+
       <div style={{ marginTop: "20px" }}>
-        <button onClick={saveChanges}>Save Changes</button>
+        <button onClick={saveChanges}>💾 Save Changes</button>
         <a
           href="https://docs.google.com/spreadsheets/d/1ktIvhH1NSAYkjrd6jWOnY8XmeJPuJ2yguVS1KEbpaQI/edit?usp=sharing"
           target="_blank"
@@ -166,7 +142,7 @@ await fetch("https://techno-backend-76p3.onrender.com/api/students", {
             borderRadius: "6px"
           }}
         >
-          Edit in Google Sheets
+          📄 Open Google Sheet
         </a>
       </div>
     </div>
