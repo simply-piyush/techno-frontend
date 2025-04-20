@@ -11,27 +11,28 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (roll === "admin1" && password === "admin1") {
-      navigate("/admin-dashboard");
-      return;
-    }
-
     try {
-      const res = await fetch("https://techno-backend-76p3.onrender.com/api/students/login", {
+      const res = await fetch("https://techno-backend-76p3.onrender.com/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ roll, password })
+        body: JSON.stringify({ roll, password }),
       });
 
       const data = await res.json();
 
       if (res.ok && data.success) {
-        navigate("/dashboard");
+        if (data.role === "admin") {
+          navigate("/admin-dashboard");
+        } else if (data.role === "student") {
+          navigate("/dashboard");
+        } else {
+          setError("Unknown user role.");
+        }
       } else {
-        setError("Invalid Student ID or Password.");
+        setError("Invalid ID or Password.");
       }
     } catch (err) {
-      console.error(err);
+      console.error("Login error:", err);
       setError("Server error. Please try again later.");
     }
   };
@@ -48,14 +49,14 @@ function Login() {
         <form onSubmit={handleSubmit}>
           <input
             type="text"
-            placeholder="Student ID"
+            placeholder="Student/Admin ID"
             value={roll}
             onChange={(e) => setRoll(e.target.value)}
             required
           />
           <input
             type="text"
-            placeholder="Password (DOB - DD-MM-YYYY)"
+            placeholder="Password (or DOB for students)"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
