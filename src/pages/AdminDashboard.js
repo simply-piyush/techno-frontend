@@ -1,33 +1,55 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import StudentTable from "../components/StudentTable";
+import CreateNotice from "../components/CreateNotice";
+import AdminNoticeBoard from "../components/AdminNoticeBoard";
 
-function AdminDashboard() {
-  const { state } = useLocation();
-  const admin = state?.user;
+const AdminDashboard = () => {
+  const [activePage, setActivePage] = useState("students");
+
+  const renderPage = () => {
+    switch (activePage) {
+      case "students":
+        return <StudentTable />;
+      case "createNotice":
+        return <CreateNotice />;
+      case "notices":
+        return <AdminNoticeBoard />;
+      default:
+        return <StudentTable />;
+    }
+  };
 
   return (
-    <div style={{ padding: "40px", textAlign: "center" }}>
-      <h1>Welcome Admin</h1>
-      <p>Logged in as: {admin?.username}</p>
+    <div className="app-container">
+      <aside className="sidebar">
+        <h2>Admin Panel</h2>
+        <ul>
+          <li
+            className={activePage === "students" ? "active" : ""}
+            onClick={() => setActivePage("students")}
+          >
+            Student Table
+          </li>
+          <li
+            className={activePage === "createNotice" ? "active" : ""}
+            onClick={() => setActivePage("createNotice")}
+          >
+            Create Notice
+          </li>
+          <li
+            className={activePage === "notices" ? "active" : ""}
+            onClick={() => setActivePage("notices")}
+          >
+            Notice Board
+          </li>
+        </ul>
+      </aside>
 
-      <div style={{ marginTop: "30px" }}>
-        <button style={btnStyle}>View Students</button>
-        <button style={btnStyle}>Post Notices</button>
-        <button style={btnStyle}>Logout</button>
-      </div>
+      <main className="main-content">
+        {renderPage()}
+      </main>
     </div>
   );
-}
-
-const btnStyle = {
-  margin: "10px",
-  padding: "10px 20px",
-  fontSize: "16px",
-  backgroundColor: "#b30000",
-  color: "white",
-  border: "none",
-  borderRadius: "8px",
-  cursor: "pointer"
 };
 
 export default AdminDashboard;
