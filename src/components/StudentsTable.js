@@ -12,7 +12,39 @@ const StudentsTable = () => {
       const response = await fetch('/api/students');
       const json = await response.json();
       if (json.success) {
-        setData(json.data);
+        // Filter only required fields
+        const filtered = json.data.map((student) => ({
+          name: student.name,
+          gender: student.gender,
+          phone: student.phone,
+          email: student.email,
+          roll: student.roll,
+          stream: student.stream,
+          year: student.year,
+          bloodGroup: student.bloodGroup,
+          address: student.address,
+          state: student.state,
+          district: student.district,
+          pin: student.pin,
+          fatherName: student.fatherName,
+          fatherMobile: student.fatherMobile,
+          fatherOccupation: student.fatherOccupation,
+          fatherDesignation: student.fatherDesignation,
+          fatherPan: student.fatherPan,
+          fatherAddress: student.fatherAddress,
+          fatherDistrict: student.fatherDistrict,
+          fatherPin: student.fatherPin,
+          motherName: student.motherName,
+          motherMobile: student.motherMobile,
+          motherOccupation: student.motherOccupation,
+          motherDesignation: student.motherDesignation,
+          motherPan: student.motherPan,
+          motherAddress: student.motherAddress,
+          motherDistrict: student.motherDistrict,
+          motherPin: student.motherPin,
+        }));
+
+        setData(filtered);
       } else {
         alert('Failed to fetch data.');
       }
@@ -39,7 +71,7 @@ const StudentsTable = () => {
       const json = await response.json();
       if (json.success) {
         alert('Data saved successfully.');
-        fetchData(); // Refresh data if needed
+        fetchData(); // Refresh data
       } else {
         alert('Error saving data.');
       }
@@ -50,36 +82,93 @@ const StudentsTable = () => {
 
   return (
     <div>
+      <h1>Student Information</h1>
       <HotTable
         ref={hotTableComponent}
         data={data}
         colHeaders={[
-          'ID',
           'Name',
+          'Gender',
+          'Phone',
           'Email',
-          'Mobile',
+          'Roll',
+          'Stream',
+          'Joining Year',
+          'Blood Group',
           'Address',
+          'State',
+          'District',
+          'PIN',
           "Father's Name",
-          "Father's Phone",
+          "Father's Mobile",
+          "Father's Occupation",
+          "Father's Designation",
+          "Father's PAN",
+          "Father's Address",
+          "Father's District",
+          "Father's PIN",
           "Mother's Name",
-          "Mother's Phone"
+          "Mother's Mobile",
+          "Mother's Occupation",
+          "Mother's Designation",
+          "Mother's PAN",
+          "Mother's Address",
+          "Mother's District",
+          "Mother's PIN"
         ]}
         columns={[
-          { data: 'id', readOnly: true },
           { data: 'name' },
+          { data: 'gender' },
+          { data: 'phone' },
           { data: 'email' },
-          { data: 'mobile' },
+          { data: 'roll' },
+          { data: 'stream' },
+          { data: 'year' },
+          { data: 'bloodGroup' },
           { data: 'address' },
-          { data: 'father_name' },
-          { data: 'father_phone' },
-          { data: 'mother_name' },
-          { data: 'mother_phone' }
+          { data: 'state' },
+          { data: 'district' },
+          { data: 'pin' },
+          { data: 'fatherName' },
+          { data: 'fatherMobile' },
+          { data: 'fatherOccupation' },
+          { data: 'fatherDesignation' },
+          { data: 'fatherPan' },
+          { data: 'fatherAddress' },
+          { data: 'fatherDistrict' },
+          { data: 'fatherPin' },
+          { data: 'motherName' },
+          { data: 'motherMobile' },
+          { data: 'motherOccupation' },
+          { data: 'motherDesignation' },
+          { data: 'motherPan' },
+          { data: 'motherAddress' },
+          { data: 'motherDistrict' },
+          { data: 'motherPin' }
         ]}
         width="100%"
-        height={400}
+        height="auto"
+        stretchH="all"
         licenseKey="non-commercial-and-evaluation"
       />
-      <button onClick={saveChanges}>Save Changes</button>
+      <div style={{ marginTop: "20px" }}>
+        <button onClick={saveChanges}>Save Changes</button>
+        <a
+          href="https://docs.google.com/spreadsheets/d/1ktIvhH1NSAYkjrd6jWOnY8XmeJPuJ2yguVS1KEbpaQI/edit?usp=sharing"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            marginLeft: "20px",
+            padding: "10px 15px",
+            background: "#1a73e8",
+            color: "white",
+            textDecoration: "none",
+            borderRadius: "6px"
+          }}
+        >
+          Edit in Google Sheets
+        </a>
+      </div>
     </div>
   );
 };
