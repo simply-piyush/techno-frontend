@@ -9,7 +9,7 @@ const StudentsTable = () => {
   // Fetch data from the backend API
   const fetchData = async () => {
     try {
-      const response = await fetch('/api/students');
+const response = await fetch("https://techno-backend-76p3.onrender.com/api/students");
       const json = await response.json();
       if (json.success) {
         // Filter only required fields
@@ -61,7 +61,7 @@ const StudentsTable = () => {
   const saveChanges = async () => {
     const updatedData = hotTableComponent.current.hotInstance.getSourceData();
     try {
-      const response = await fetch('/api/students', {
+await fetch("https://techno-backend-76p3.onrender.com/api/students", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
