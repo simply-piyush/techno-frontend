@@ -20,14 +20,15 @@ function Login() {
         body: JSON.stringify({ roll, password: dob })
       });
 
-      if (!res.ok) {
-        throw new Error("Invalid credentials");
-      }
+      if (!res.ok) throw new Error("Login failed");
 
       const data = await res.json();
-      // You can save the user info or token here
-      console.log("Login successful:", data);
-      navigate("/dashboard", { state: { student: data } });
+
+      if (data.role === "admin") {
+        navigate("/admin-dashboard", { state: { user: data } });
+      } else {
+        navigate("/dashboard", { state: { student: data } });
+      }
     } catch (err) {
       setError("Login failed. Please check your Student ID and DOB.");
     }
