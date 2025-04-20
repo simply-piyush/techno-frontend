@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { loginStudent } from "../api/auth"; // abstracted API logic
 import "./Login.css";
 
 const Login = () => {
@@ -11,25 +12,12 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ studentId, dob }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        alert("Login successful!");
-        navigate("/dashboard");
-      } else {
-        alert(data.message || "Login failed");
-      }
+      const data = await loginStudent({ studentId, dob });
+      alert("Login successful!");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Login error:", error);
-      alert("Error logging in.");
+      alert(error.message || "Error logging in.");
     }
   };
 
