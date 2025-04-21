@@ -19,11 +19,10 @@ const Home = () => {
     try {
       const res = await fetch(apiUrl);
       if (!res.ok) throw new Error("Failed to fetch notices");
-
       const data = await res.json();
       setNotices(data);
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "Unexpected error occurred");
     } finally {
       setIsLoading(false);
     }
@@ -31,49 +30,47 @@ const Home = () => {
 
   return (
     <DashboardLayout>
-      <div className="space-y-4">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-semibold text-red-700">📢 Notice Board</h2>
+      <div className="max-w-5xl mx-auto">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-2xl font-semibold text-gray-800">📢 Notice Board</h1>
           <button
             onClick={fetchNotices}
-            className="px-4 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700 transition"
+            className="text-sm text-white bg-red-600 hover:bg-red-700 px-4 py-1.5 rounded transition"
           >
             Refresh
           </button>
         </div>
 
         {isLoading ? (
-          <p className="text-gray-600">Loading notices...</p>
+          <div className="text-gray-500">Loading notices...</div>
         ) : error ? (
-          <div className="bg-red-100 text-red-700 p-4 rounded">
+          <div className="bg-red-100 text-red-700 p-4 rounded shadow-sm">
             <p>Error: {error}</p>
-            <button
-              onClick={fetchNotices}
-              className="mt-2 text-sm underline hover:text-red-900"
-            >
-              Retry
-            </button>
           </div>
         ) : notices.length === 0 ? (
-          <div className="text-center text-gray-500">No notices available.</div>
+          <div className="text-center text-gray-400">No notices available.</div>
         ) : (
           <div className="grid gap-4">
             {notices.map((notice) => (
               <div
                 key={notice._id}
-                className="bg-white shadow-md rounded-lg p-4 hover:shadow-lg transition"
+                className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow transition"
               >
-                <div className="flex justify-between items-start">
-                  <h3 className="text-lg font-medium text-gray-900">{notice.title}</h3>
-                  <span className="text-sm text-gray-500">{new Date(notice.date).toLocaleString()}</span>
+                <div className="flex justify-between items-start mb-2">
+                  <h2 className="text-lg font-medium text-gray-900">
+                    {notice.title}
+                  </h2>
+                  <span className="text-xs text-gray-500">
+                    {new Date(notice.date).toLocaleString()}
+                  </span>
                 </div>
-                <p className="mt-2 text-gray-700 text-sm">{notice.description}</p>
+                <p className="text-sm text-gray-700 mb-2">{notice.description}</p>
                 {notice.fileURL && (
                   <a
                     href={notice.fileURL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center text-blue-600 hover:underline text-sm mt-3"
+                    className="text-sm text-blue-600 hover:underline"
                   >
                     📎 View Attachment
                   </a>
