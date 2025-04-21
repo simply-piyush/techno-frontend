@@ -6,7 +6,7 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const apiUrl = "https://techno-backend-76p3.onrender.com/api/notices";
+  const apiUrl = "https://techno-backend-76p3.onrender.com/api/students/notices";
 
   useEffect(() => {
     fetchNotices();
