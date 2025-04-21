@@ -4,12 +4,12 @@ import FullDetails from "./pages/FullDetails";
 import Marks from "./pages/Marks";
 import Fees from "./pages/Fees";
 import Attendance from "./pages/Attendance";
-
+import Login from "./pages/Login"
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} /> {/* 🏠 Notice Board */}
+        <Route path="/" element={<Login />} /> 
         <Route path="/home" element={<Home />} />
         <Route path="/details" element={<FullDetails />} />
         <Route path="/marks" element={<Marks />} />
