@@ -5,7 +5,7 @@ export default function NoticesBoard() {
   const [notices, setNotices] = useState([]);
 
   useEffect(() => {
-    fetch("https://techno-backend-76p3.onrender.com/api/notices")
+    fetch("https://techno-backend-76p3.onrender.com/api/students/notices")
       .then((res) => res.json())
       .then((data) => {
         if (data.success) setNotices(data.notices);
