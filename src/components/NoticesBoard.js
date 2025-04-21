@@ -10,9 +10,10 @@ const NoticeBoard = ({ notices = [], loading, error }) => {
         </h2>
         <button
           onClick={() => window.location.reload()}
-          className="text-[10px] sm:text-xs px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition"
+          title="Refresh"
+          className="text-gray-500 hover:text-red-600 text-base sm:text-lg transition duration-200"
         >
-          ⟳ Refresh
+          ⟳
         </button>
       </div>
 
