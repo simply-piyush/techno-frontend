@@ -40,7 +40,7 @@ const DashboardLayout = ({ children }) => {
         }`}
       >
         <div className="flex flex-col gap-2 p-4">
-          <SidebarItem to="/home" label="🏠 Notice Board" />
+          <SidebarItem to="/dashboard" label="🏠 Notice Board" />
           <SidebarItem to="/details" label="📝 Full Details" />
           <SidebarItem to="/marks" label="📊 Marks" />
           <SidebarItem to="/fees" label="💰 Fees" />
