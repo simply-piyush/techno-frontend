@@ -7,7 +7,7 @@ const Dashboard = () => {
   const [error, setError] = React.useState("");
 
   React.useEffect(() => {
-    fetch("https://techno-backend-76p3.onrender.com/api/notices")
+    fetch("https://techno-backend-76p3.onrender.com/api/students/notices")
       .then((res) => res.json())
       .then((data) => {
         setNotices(data);
