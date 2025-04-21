@@ -5,12 +5,13 @@ import Marks from "./pages/Marks";
 import Fees from "./pages/Fees";
 import Attendance from "./pages/Attendance";
 import Login from "./pages/Login"
+import admin-dashboard from "./pages/AdminDashboard"
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Login />} /> 
-        <Route path="/home" element={<Home />} />
+        <Route path="/home" element={<admin-dashboard />} />
         <Route path="/details" element={<FullDetails />} />
         <Route path="/marks" element={<Marks />} />
         <Route path="/fees" element={<Fees />} />
