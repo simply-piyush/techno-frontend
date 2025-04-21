@@ -17,7 +17,7 @@ const Dashboard = () => {
         const res = await fetch(apiUrl);
         const json = await res.json();
 
-        console.log("API response:", json); // ✅ debug
+        console.log("API response:", json);
 
         if (!res.ok || !json.success || !Array.isArray(json.data)) {
           throw new Error("Invalid notice format");
@@ -37,32 +37,37 @@ const Dashboard = () => {
 
   return (
     <DashboardLayout>
-      <div className="max-w-5xl mx-auto">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-gray-800">📢 Notice Board</h2>
+      <div className="max-w-5xl mx-auto px-4">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-lg sm:text-xl font-semibold text-gray-800 whitespace-nowrap">
+            📢 Notice Board
+          </h2>
           <button
             onClick={() => window.location.reload()}
-            className="text-sm text-white bg-red-600 hover:bg-red-700 px-4 py-1.5 rounded"
+            title="Refresh"
+            className="text-gray-500 hover:text-red-600 text-base sm:text-lg transition"
           >
-            Refresh
+            ⟳
           </button>
         </div>
 
+        {/* Content */}
         {isLoading ? (
-          <p className="text-gray-500">Loading notices...</p>
+          <p className="text-gray-500 text-sm">Loading notices...</p>
         ) : error ? (
-          <div className="bg-red-100 text-red-700 p-4 rounded shadow">{error}</div>
+          <div className="bg-red-100 text-red-700 p-4 rounded shadow text-sm">{error}</div>
         ) : notices.length === 0 ? (
-          <div className="text-center text-gray-500">No notices available</div>
+          <div className="text-center text-gray-400 text-sm">No notices available</div>
         ) : (
           <div className="grid gap-4">
             {notices.map((notice) => (
               <div
                 key={notice._id}
-                className="bg-white border border-gray-200 rounded-lg p-4 shadow hover:shadow-md transition"
+                className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition"
               >
                 <div className="flex justify-between items-start mb-1">
-                  <h3 className="text-lg font-semibold text-gray-800">{notice.title}</h3>
+                  <h3 className="text-base font-medium text-gray-900">{notice.title}</h3>
                   <span className="text-xs text-gray-500">
                     {new Date(notice.date).toLocaleString()}
                   </span>
