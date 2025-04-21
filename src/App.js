@@ -15,7 +15,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} /> {/* 👤 student */}
         <Route path="/admin-dashboard" element={<AdminDashboard />} /> {/* 🛠️ admin */}
-        <Route path="/home" element={<Home />} />
+        <Route path="/dashboard" element={<Home />} />
         <Route path="/details" element={<FullDetails />} />
         <Route path="/marks" element={<Marks />} />
         <Route path="/fees" element={<Fees />} />
