@@ -1,20 +1,20 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./pages/Login";
-import CreateAccount from "./pages/CreateAccount";
-import StudentDashboard from "./pages/Dashboard";
-import AdminDashboard from "./pages/AdminDashboard";
-import Home from "./pages/Home"; // ✅ import the new page
+import Home from "./pages/Home";
+import FullDetails from "./pages/FullDetails";
+import Marks from "./pages/Marks";
+import Fees from "./pages/Fees";
+import Attendance from "./pages/Attendance";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/create-account" element={<CreateAccount />} />
-        <Route path="/" element={<Home />} /> {/* Set Home as default */}
-        <Route path="/home" element={<Home />} 
-        <Route path="/dashboard" element={<StudentDashboard />} />
-        <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/" element={<Home />} /> {/* 🏠 Notice Board */}
+        <Route path="/home" element={<Home />} />
+        <Route path="/details" element={<FullDetails />} />
+        <Route path="/marks" element={<Marks />} />
+        <Route path="/fees" element={<Fees />} />
+        <Route path="/attendance" element={<Attendance />} />
       </Routes>
     </Router>
   );
