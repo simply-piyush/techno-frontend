@@ -40,13 +40,13 @@ const Dashboard = () => {
       <div className="max-w-5xl mx-auto px-4">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-lg sm:text-xl font-semibold text-gray-800 whitespace-nowrap">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 whitespace-nowrap">
             📢 Notice Board
           </h2>
           <button
             onClick={() => window.location.reload()}
             title="Refresh"
-            className="text-gray-500 hover:text-red-600 text-base sm:text-lg transition"
+            className="flex items-center justify-center w-7 h-7 text-xs text-gray-600 bg-gray-100 rounded hover:bg-red-100 hover:text-red-600 transition"
           >
             ⟳
           </button>
