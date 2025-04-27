@@ -61,7 +61,7 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type="submit">LOGIN</button>
+          <button type="submit">LOG IN</button>
         </form>
         {error && <p className="error">{error}</p>}
         <p className="link">
